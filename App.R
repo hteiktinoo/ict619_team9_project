@@ -8,10 +8,6 @@
 
 # Import library dependencies #
 #=============================#
-#install.packages("shiny")
-#install.packages("tidyverse")
-#install.packages("randomForest")
-#install.packages("caret")
 library(shiny)
 library(tidyverse)
 library(randomForest)
@@ -39,7 +35,7 @@ summary(stud_perf)
 sum(is.na(stud_perf))
 
 # Encode categorical variables (Gender, Race Ethnicity, Parental level of education) into labels #
-#==========================================#
+#================================================================================================#
 stud_perf$gender <- as.factor(stud_perf$gender)
 stud_perf$race.ethnicity <- as.factor(stud_perf$race.ethnicity)
 stud_perf$parental.level.of.education <- as.factor(stud_perf$parental.level.of.education)
@@ -86,10 +82,10 @@ model <- train(
 #==================================#
 predictions <- predict(model, test_data)
 
-# Calculate Mean Squared Error (MSE) #
+# Calculate Root Mean Squared Error (MSE) #
 #===================================#
-mse <- mean((test_data$overall.score - predictions)^2)
-cat("Mean Squared Error (MSE):", mse, "\n")
+rmse <- sqrt(mean((test_data$overall.score - predictions)^2))
+cat("Root Mean Squared Error (RMSE):", rmse, "\n")
 
 # Create a histogram of overall scores #
 #======================================#
@@ -147,4 +143,5 @@ server <- function(input, output) {
 #===================#
 shinyApp(ui = ui, server = server)
 
+#=========================================END============================================================#
 
